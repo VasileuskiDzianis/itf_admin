@@ -30,7 +30,7 @@ public class BidController {
         return bidService.findAll();
     }
 
-    @PutMapping("{bidId}")
+    @PutMapping("{bidId}/status")
     public ResponseEntity updateBid(@PathVariable(name = "bidId") Long bidId,
                           @RequestBody Bid bid){
         if (bidId != bid.getId()) {
