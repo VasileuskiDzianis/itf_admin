@@ -4,5 +4,5 @@ import java.util.Map;
 
 public interface ReportingService {
 
-    Map<String, Integer> bidsStatistic();
+    Map<String, Integer> bidsCountStatistic();
 }
