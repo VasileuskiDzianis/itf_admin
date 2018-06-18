@@ -32,7 +32,7 @@ public class BidController {
 
     @PutMapping("{bidId}/status")
     public ResponseEntity updateBid(@PathVariable(name = "bidId") Long bidId,
-                          @RequestBody Bid bid){
+                                    @RequestBody Bid bid) {
         if (bidId != bid.getId()) {
 
             return new ResponseEntity(HttpStatus.BAD_REQUEST);

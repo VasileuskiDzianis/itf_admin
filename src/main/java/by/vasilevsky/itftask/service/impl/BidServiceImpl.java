@@ -31,13 +31,7 @@ public class BidServiceImpl implements BidService {
     @Override
     @Transactional
     public void updateBidStatus(Bid bid) throws BidServiceException {
-        if (bid == null) {
-            throw new IllegalArgumentException("Bid cannot be null");
-        }
-
-        if (bid.getId() <= LEAST_ID) {
-            throw new IllegalArgumentException("Bid's id must be greater than 0");
-        }
+        validateBid(bid);
 
         Bid storedBid = bidDao.findBidById(bid.getId());
 
@@ -45,7 +39,7 @@ public class BidServiceImpl implements BidService {
             throw new BidServiceException("No such bid with id=" + bid.getId());
         }
 
-        if (isChangingAllowed(storedBid.getBidStatus(), bid.getBidStatus())) {
+        if (isTransferAllowed(storedBid.getBidStatus(), bid.getBidStatus())) {
             storedBid.setBidStatus(bid.getBidStatus());
             bidDao.save(storedBid);
         } else {
@@ -54,7 +48,17 @@ public class BidServiceImpl implements BidService {
         }
     }
 
-    private boolean isChangingAllowed(BidStatus currentBid, BidStatus targetBid) {
+    private void validateBid(Bid bid) {
+        if (bid == null) {
+            throw new IllegalArgumentException("Bid cannot be null");
+        }
+
+        if (bid.getId() <= LEAST_ID) {
+            throw new IllegalArgumentException("Bid's id must be greater than 0");
+        }
+    }
+
+    private boolean isTransferAllowed(BidStatus currentBid, BidStatus targetBid) {
 
         return targetBid != null && currentBid == BidStatus.QUEUE;
     }

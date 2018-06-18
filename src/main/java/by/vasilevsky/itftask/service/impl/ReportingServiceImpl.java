@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class ReportingServiceImpl implements ReportingService{
+public class ReportingServiceImpl implements ReportingService {
     static final String REJECTED_FIELD = "rejected";
     static final String PROCESSED_FIELD = "processed";
     static final String QUEUE_FIELD = "queue";
@@ -35,10 +35,12 @@ public class ReportingServiceImpl implements ReportingService{
                 case PROCESSED: {
                     processedCounter++;
                     break;
-                }case REJECTED: {
+                }
+                case REJECTED: {
                     rejectedCounter++;
                     break;
-                }case QUEUE: {
+                }
+                case QUEUE: {
                     queueCounter++;
                     break;
                 }
